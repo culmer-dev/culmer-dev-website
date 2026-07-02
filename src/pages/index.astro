@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { LINKS, SITE } from "../data/site";
+---
+
+<BaseLayout title="Colin Ulmer — culmer.dev" active="home" showFooter={false}>
+  <section class="home">
+    <div class="home__grid">
+      <!-- terminal card -->
+      <div class="terminal">
+        <div class="terminal__bar">
+          <span class="dot dot--red"></span>
+          <span class="dot dot--yellow"></span>
+          <span class="dot dot--green"></span>
+          <span class="terminal__title">colin@seattle: ~</span>
+        </div>
+        <div class="terminal__body">
+          <div class="prompt"><span class="prompt__sym">$</span> whoami</div>
+          <h1 class="name">Colin Ulmer</h1>
+          <p class="bio">
+            Software engineer. I write about distributed systems and databases —
+            consensus, storage engines, and the failure modes nobody warns you
+            about.
+          </p>
+          <div class="role">
+            // SWE · between roles · <strong>ex-Meta, ex-Microsoft</strong>
+          </div>
+
+          <div class="prompt"><span class="prompt__sym">$</span> ls ./links</div>
+          <div class="links">
+            <a href="/blog" class="link-row">
+              <span class="link-arrow">→</span>
+              <span class="link-name">blog/</span>
+              <span class="link-desc">— technical writing</span>
+            </a>
+            <a href={LINKS.github} target="_blank" rel="noopener" class="link-row">
+              <span class="link-arrow">↗</span>
+              <span class="link-name">github</span>
+              <span class="link-desc">— @culmer-dev</span>
+            </a>
+            <a
+              href={LINKS.linkedin}
+              target="_blank"
+              rel="noopener"
+              class="link-row"
+            >
+              <span class="link-arrow">↗</span>
+              <span class="link-name">linkedin</span>
+              <span class="link-desc">— /in/colin-ulmer</span>
+            </a>
+            <a href={LINKS.resume} target="_blank" rel="noopener" class="link-row">
+              <span class="link-arrow">↗</span>
+              <span class="link-name">resume.pdf</span>
+              <span class="link-desc">— download</span>
+            </a>
+          </div>
+          <div class="cursor-line">
+            <span class="prompt__sym">$</span> <span class="cursor"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- photo -->
+      <div class="photo-card">
+        <img src="/assets/colin.jpeg" alt="Colin Ulmer" />
+        <div class="photo-card__caption">
+          <span>colin.jpeg</span>
+          <span class="loc">● {SITE.location}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { LINKS } from "../../data/site";
+import { posts } from "../../data/posts";
+
+export function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<BaseLayout title={`${post.title} — culmer.dev`} description={post.excerpt} active="blog">
+  <article class="article">
+    <a href="/blog" class="back-link"><span class="cd">cd</span> ../blog</a>
+
+    <div class="article__meta">
+      <span class="tag">{post.tag}</span>
+      <span>{post.date}</span>
+      <span>·</span>
+      <span>{post.read} read</span>
+    </div>
+
+    <h1 class="article__title">{post.title}</h1>
+    <p class="article__lede">{post.excerpt}</p>
+
+    <div class="prose" set:html={post.body} />
+
+    <div class="article__author">
+      <img src="/assets/colin.jpeg" alt="Colin Ulmer" />
+      <div>
+        <div class="name-sm">Colin Ulmer</div>
+        <div class="sub">
+          distributed systems &amp; databases · <a
+            href={LINKS.github}
+            target="_blank"
+            rel="noopener">@culmer-dev</a
+          >
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

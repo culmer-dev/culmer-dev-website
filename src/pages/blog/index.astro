@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { posts } from "../../data/posts";
+---
+
+<BaseLayout title="blog — culmer.dev" active="blog">
+  <section class="blog">
+    <div class="blog__cmd"><span style="color: var(--accent)">$</span> ls -la ./blog</div>
+    <h1 class="blog__title">./blog</h1>
+    <p class="blog__intro">
+      Field notes on consensus, storage engines, replication, and the sharp
+      edges of building systems that don't lose your data.
+    </p>
+
+    {
+      posts.map((post) => (
+        <a href={`/blog/${post.id}`} class="post-card">
+          <div class="post-meta">
+            <span class="tag">{post.tag}</span>
+            <span>{post.date}</span>
+            <span>·</span>
+            <span>{post.read} read</span>
+          </div>
+          <h2 class="post-card__title">{post.title}</h2>
+          <p class="post-card__excerpt">{post.excerpt}</p>
+        </a>
+      ))
+    }
+  </section>
+</BaseLayout>
