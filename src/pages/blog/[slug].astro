@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { LINKS } from "../../data/site";
-import { posts } from "../../data/posts";
+import { getCollection, render } from "astro:content";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
@@ -11,30 +12,33 @@ export function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const { Content } = await render(post);
 ---
 
-<BaseLayout title={`${post.title} — culmer.dev`} description={post.excerpt} active="blog">
+<BaseLayout title={`${post.data.title} — culmer.dev`} description={post.data.excerpt} active="blog">
   <article class="article">
     <a href="/blog" class="back-link"><span class="cd">cd</span> ../blog</a>
 
     <div class="article__meta">
-      <span class="tag">{post.tag}</span>
-      <span>{post.date}</span>
+      <span class="tag">{post.data.tag}</span>
+      <span>{post.data.date}</span>
       <span>·</span>
-      <span>{post.read} read</span>
+      <span>{post.data.read} read</span>
     </div>
 
-    <h1 class="article__title">{post.title}</h1>
-    <p class="article__lede">{post.excerpt}</p>
+    <h1 class="article__title">{post.data.title}</h1>
+    <p class="article__lede">{post.data.excerpt}</p>
 
-    <div class="prose" set:html={post.body} />
+    <div class="prose">
+      <Content />
+    </div>
 
     <div class="article__author">
       <img src="/assets/colin.jpeg" alt="Colin Ulmer" />
       <div>
         <div class="name-sm">Colin Ulmer</div>
         <div class="sub">
-          distributed systems &amp; databases · <a
+          distributed systems &amp; storage · <a
             href={LINKS.github}
             target="_blank"
             rel="noopener">@culmer-dev</a
