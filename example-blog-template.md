@@ -1,3 +1,6 @@
+EXAMPLE: Place in content/blog folder
+
+
 ---
 title: "Every LLM App is Really an Event Processing System - And Clickhouse is Built for Events"
 date: "2026-06-11"
